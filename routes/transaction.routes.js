@@ -5,8 +5,7 @@ const {
     getTransactions,
     getTransactionById,
     updateTransaction,
-    deleteTransaction,
-    getTransactionSummary
+    deleteTransaction
 } = require('../controllers/transaction.controller');
 
 /**
@@ -16,32 +15,6 @@ const {
  *   description: Transaction management
  */
 
-/**
- * @swagger
- * /api/transactions/summary:
- *   get:
- *     summary: Get spending summary (totals by type and category breakdown)
- *     tags: [Transactions]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: startDate
- *         schema:
- *           type: string
- *           format: date
- *       - in: query
- *         name: endDate
- *         schema:
- *           type: string
- *           format: date
- *     responses:
- *       200:
- *         description: Summary returned successfully
- *       401:
- *         description: Not authorized
- */
-router.get('/summary', getTransactionSummary);
 
 /**
  * @swagger
@@ -202,7 +175,7 @@ router.get('/:id', getTransactionById);
  *       401:
  *         description: Not authorized
  */
-router.put('/:id', updateTransaction);
+router.patch('/:id', updateTransaction);
 
 /**
  * @swagger
