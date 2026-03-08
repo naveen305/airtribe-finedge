@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { protect } = require('../middleware/auth.middleware');
 const {
     createBudget,
     getBudgets,
@@ -8,6 +9,8 @@ const {
     deleteBudget,
     getBudgetComparison
 } = require('../controllers/budget.controller');
+
+router.use(protect);
 
 /**
  * @swagger
