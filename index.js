@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 
+// Routes
+app.use('/api/users', require('./routes/user.routes'));
+
 // Health Check Endpoint
 app.get('/health', (req, res) => {
     res.status(200).json({
