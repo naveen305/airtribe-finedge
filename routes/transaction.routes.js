@@ -9,6 +9,9 @@ const {
     deleteTransaction
 } = require('../controllers/transaction.controller');
 
+const { validateTransaction } = require("../middleware/validator");
+
+router.post("/", validateTransaction, createTransaction);
 router.use(protect);
 
 /**
@@ -62,7 +65,7 @@ router.use(protect);
  *       401:
  *         description: Not authorized
  */
-router.post('/', createTransaction);
+// router.post('/', createTransaction);
 
 /**
  * @swagger
