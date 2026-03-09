@@ -60,10 +60,22 @@ router.use(protect);
  *     responses:
  *       201:
  *         description: Transaction created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transaction'
  *       400:
  *         description: Invalid data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 // router.post('/', createTransaction);
 
@@ -108,8 +120,24 @@ router.use(protect);
  *     responses:
  *       200:
  *         description: List of transactions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 total: { type: 'integer' }
+ *                 page: { type: 'integer' }
+ *                 pages: { type: 'integer' }
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Transaction'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/', getTransactions);
 
@@ -130,10 +158,22 @@ router.get('/', getTransactions);
  *     responses:
  *       200:
  *         description: Transaction found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transaction'
  *       404:
  *         description: Transaction not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/:id', getTransactionById);
 
@@ -176,10 +216,22 @@ router.get('/:id', getTransactionById);
  *     responses:
  *       200:
  *         description: Transaction updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transaction'
  *       404:
  *         description: Transaction not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.patch('/:id', updateTransaction);
 
@@ -200,10 +252,24 @@ router.patch('/:id', updateTransaction);
  *     responses:
  *       200:
  *         description: Transaction deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message: { type: 'string' }
  *       404:
  *         description: Transaction not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.delete('/:id', deleteTransaction);
 

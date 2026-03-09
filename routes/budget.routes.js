@@ -50,10 +50,22 @@ router.use(protect);
  *     responses:
  *       201:
  *         description: Budget created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Budget'
  *       400:
  *         description: Budget already exists or invalid data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.post('/', createBudget);
 
@@ -68,8 +80,18 @@ router.post('/', createBudget);
  *     responses:
  *       200:
  *         description: List of budgets
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Budget'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/', getBudgets);
 
@@ -90,10 +112,22 @@ router.get('/', getBudgets);
  *     responses:
  *       200:
  *         description: Budget found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Budget'
  *       404:
  *         description: Budget not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/:id', getBudgetById);
 
@@ -128,10 +162,22 @@ router.get('/:id', getBudgetById);
  *     responses:
  *       200:
  *         description: Budget updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Budget'
  *       404:
  *         description: Budget not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.patch('/:id', updateBudget);
 
@@ -152,10 +198,24 @@ router.patch('/:id', updateBudget);
  *     responses:
  *       200:
  *         description: Budget deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message: { type: 'string' }
  *       404:
  *         description: Budget not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.delete('/:id', deleteBudget);
 
@@ -176,10 +236,28 @@ router.delete('/:id', deleteBudget);
  *     responses:
  *       200:
  *         description: Comparison data returned
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 month: { type: 'string' }
+ *                 income: { type: 'object' }
+ *                 expenses: { type: 'object' }
+ *                 savings: { type: 'object' }
+ *                 categoryBreakdown: { type: 'object' }
  *       404:
  *         description: Budget not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/:id/comparison', getBudgetComparison);
 

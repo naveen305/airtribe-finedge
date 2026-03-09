@@ -27,8 +27,27 @@ router.use(protect);
  *     responses:
  *       200:
  *         description: Summary returned successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 totals:
+ *                   type: object
+ *                   properties:
+ *                     income: { type: 'number' }
+ *                     expense: { type: 'number' }
+ *                     net: { type: 'number' }
+ *                 breakdown:
+ *                   type: array
+ *                   items:
+ *                     type: object
  *       401:
  *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.get('/', getTransactionSummary);
 

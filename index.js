@@ -5,7 +5,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const logger = require("./middleware/logger");
-const { errorHandler }  = require("./middleware/errorHandler");
+const { errorHandler } = require("./middleware/errorHandler");
 // const { validateTransaction } = require("../middleware/validator");
 
 
@@ -30,6 +30,59 @@ const swaggerOptions = {
                 url: `http://localhost:${PORT}`,
             },
         ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                },
+            },
+            schemas: {
+                User: {
+                    type: 'object',
+                    properties: {
+                        _id: { type: 'string' },
+                        username: { type: 'string' },
+                        email: { type: 'string' },
+                        token: { type: 'string' },
+                    },
+                },
+                Transaction: {
+                    type: 'object',
+                    required: ['type', 'category', 'amount'],
+                    properties: {
+                        _id: { type: 'string' },
+                        user: { type: 'string' },
+                        type: { type: 'string', enum: ['income', 'expense'] },
+                        category: { type: 'string' },
+                        amount: { type: 'number' },
+                        description: { type: 'string' },
+                        date: { type: 'string', format: 'date-time' },
+                        tags: { type: 'array', items: { type: 'string' } },
+                    },
+                },
+                Budget: {
+                    type: 'object',
+                    required: ['month'],
+                    properties: {
+                        _id: { type: 'string' },
+                        user: { type: 'string' },
+                        month: { type: 'string', example: '2026-03' },
+                        incomeGoal: { type: 'number' },
+                        expenseLimit: { type: 'number' },
+                        savingsTarget: { type: 'number' },
+                        categories: { type: 'object' },
+                    },
+                },
+                Error: {
+                    type: 'object',
+                    properties: {
+                        message: { type: 'string' },
+                    },
+                },
+            },
+        },
     },
     apis: ['./routes/*.js'], // Path to the API docs
 };
