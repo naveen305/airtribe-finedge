@@ -4,6 +4,12 @@ const mongoose = require('mongoose');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
+const logger = require("./middleware/logger");
+const { errorHandler }  = require("./middleware/errorHandler");
+// const { validateTransaction } = require("../middleware/validator");
+
+
+
 // Load environment variables
 dotenv.config();
 
@@ -33,12 +39,15 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Middleware
 app.use(express.json());
+app.use(logger);
+app.use(errorHandler);
 
 // Routes
 app.use('/api/users', require('./routes/user.routes'));
 app.use('/api/transactions', require('./routes/transaction.routes'));
 app.use('/api/budgets', require('./routes/budget.routes'));
 app.use('/api/summary', require('./routes/summary.routes'));
+
 
 // Health Check Endpoint
 app.get('/health', (req, res) => {
